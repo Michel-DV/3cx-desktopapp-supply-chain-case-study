@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#061414"/><stop offset="0.52" stop-color="#0c2520"/><stop offset="1" stop-color="#251116"/></linearGradient>
+  <radialGradient id="g1" cx="20%" cy="25%" r="55%"><stop offset="0" stop-color="#1fd085" stop-opacity=".32"/><stop offset="1" stop-color="#1fd085" stop-opacity="0"/></radialGradient>
+  <radialGradient id="g2" cx="80%" cy="60%" r="52%"><stop offset="0" stop-color="#e04f5f" stop-opacity=".28"/><stop offset="1" stop-color="#e04f5f" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M 42 0 L 0 0 0 42" fill="none" stroke="#7bd7b4" stroke-opacity=".08" stroke-width="1"/></pattern>
+  <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#g1)"/><rect width="1600" height="900" fill="url(#g2)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<g opacity=".6" fill="none" stroke-width="3">
+  <path d="M120 280 C410 90 600 150 760 350" stroke="#36d68b"/>
+  <path d="M760 350 C970 560 1190 270 1480 470" stroke="#e45967"/>
+  <path d="M150 570 C420 380 610 650 820 520" stroke="#3ccbe0" stroke-opacity=".65"/>
+</g>
+<g fill="#d8fff0" filter="url(#glow)"><circle cx="120" cy="280" r="6"/><circle cx="760" cy="350" r="8"/><circle cx="1480" cy="470" r="6"/></g>
+<g transform="translate(585 190)"><rect x="0" y="0" rx="26" width="430" height="315" fill="#071917" stroke="#58deb0" stroke-opacity=".6" stroke-width="2"/><rect x="36" y="44" width="358" height="62" rx="12" fill="#0f3329"/><text x="215" y="83" text-anchor="middle" fill="#dfffee" font-family="Arial" font-size="28" font-weight="700">TRUSTED UPDATE</text><text x="215" y="139" text-anchor="middle" fill="#8fcbb5" font-family="Arial" font-size="18">signed · distributed · installed</text><line x1="72" y1="180" x2="358" y2="180" stroke="#e45865" stroke-width="3"/><text x="215" y="224" text-anchor="middle" fill="#ff9aa4" font-family="Courier New" font-size="22">supplier A → supplier B</text><text x="215" y="268" text-anchor="middle" fill="#ff6675" font-family="Courier New" font-size="20">→ downstream victims</text></g>
+<text x="95" y="96" fill="#66e5b6" font-family="Courier New" font-size="22" letter-spacing="3">THREAT RESEARCH / INCIDENT RECONSTRUCTION / CASE-003</text>
+<text x="95" y="690" fill="#ffffff" font-family="Arial" font-size="72" font-weight="800">3CX DESKTOPAPP</text>
+<text x="95" y="760" fill="#e65b68" font-family="Arial" font-size="54" font-weight="800">SUPPLY-CHAIN COMPROMISE</text>
+<text x="95" y="814" fill="#b7d6cc" font-family="Arial" font-size="26">When one supply chain compromised another.</text>
+<text x="1435" y="92" text-anchor="end" fill="#d8efe6" font-family="Arial" font-size="20">TECHNICAL CASE STUDY</text>
+<text x="1440" y="820" text-anchor="end" fill="#d8efe6" font-family="Arial" font-size="22" font-weight="700">@MICHEL-DV</text>
+<text x="1440" y="856" text-anchor="end" fill="#7fa99a" font-family="Courier New" font-size="16">CC BY-NC-ND 4.0 · 2026</text>
+</svg>
