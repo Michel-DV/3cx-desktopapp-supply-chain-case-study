@@ -1,0 +1,100 @@
+name: Publish 3CX case study
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'report/source.html'
+      - 'report/cover.html'
+      - '.github/workflows/publish-report.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PDF dependencies
+        run: pip install --disable-pip-version-check weasyprint pypdf
+
+      - name: Build publication
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from weasyprint import HTML
+          from pypdf import PdfReader, PdfWriter
+          import hashlib
+
+          root = Path('report')
+          cover = root / '_cover.pdf'
+          body = root / '_body.pdf'
+          output = root / '3CX_DesktopApp_Supply_Chain_Case_Study_Michel-DV.pdf'
+
+          HTML(filename=str(root / 'cover.html')).write_pdf(str(cover))
+          HTML(filename=str(root / 'source.html')).write_pdf(str(body))
+
+          cover_reader = PdfReader(str(cover))
+          body_reader = PdfReader(str(body))
+          if len(cover_reader.pages) != 1:
+              raise SystemExit(f'Expected 1 cover page, got {len(cover_reader.pages)}')
+          if len(body_reader.pages) != 23:
+              raise SystemExit(f'Expected 23 body pages, got {len(body_reader.pages)}')
+
+          writer = PdfWriter()
+          for page in cover_reader.pages:
+              writer.add_page(page)
+          for page in body_reader.pages:
+              writer.add_page(page)
+          with output.open('wb') as fh:
+              writer.write(fh)
+
+          final_reader = PdfReader(str(output))
+          if len(final_reader.pages) != 24:
+              raise SystemExit(f'Expected 24 total pages, got {len(final_reader.pages)}')
+
+          digest = hashlib.sha256(output.read_bytes()).hexdigest()
+          (root / 'SHA256SUMS.txt').write_text(f'{digest}  {output.name}\n', encoding='utf-8')
+          cover.unlink(missing_ok=True)
+          body.unlink(missing_ok=True)
+          print(f'Published {len(final_reader.pages)} pages; SHA-256 {digest}')
+          PY
+
+      - name: Commit generated publication
+        run: |
+          git config user.name "Michel-DV"
+          git config user.email "232046078+Michel-DV@users.noreply.github.com"
+          git add report/3CX_DesktopApp_Supply_Chain_Case_Study_Michel-DV.pdf report/SHA256SUMS.txt
+          if git diff --cached --quiet; then
+            echo "Generated publication unchanged"
+          else
+            git commit -m "release: publish 3CX case study v1.0.0"
+            git push
+          fi
+
+      - name: Publish or refresh v1.0.0 release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ASSET="report/3CX_DesktopApp_Supply_Chain_Case_Study_Michel-DV.pdf"
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            gh release upload v1.0.0 "$ASSET#3CX DesktopApp Supply-Chain Case Study PDF" --clobber
+          else
+            gh release create v1.0.0 "$ASSET#3CX DesktopApp Supply-Chain Case Study PDF" \
+              --target "$(git rev-parse HEAD)" \
+              --title "3CX DesktopApp Supply-Chain Case Study - v1.0.0" \
+              --notes-file RELEASE_NOTES.md
+          fi
