@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this case study in research, training, coursework, or internal documentation, please cite it."
+title: "3CX DesktopApp Supply-Chain Compromise: Technical Case Study"
+type: report
+authors:
+  - name: "Michel-DV"
+    alias: "Michel-DV"
+    website: "https://github.com/Michel-DV"
+repository-code: "https://github.com/Michel-DV/3cx-desktopapp-supply-chain-case-study"
+url: "https://github.com/Michel-DV/3cx-desktopapp-supply-chain-case-study/releases/tag/v1.0.0"
+version: "1.0.0"
+date-released: 2026-09-15
+abstract: >-
+  Technical case study of the 2023 3CX DesktopApp compromise, covering the cascading X_TRADER-to-3CX supply-chain intrusion, build-system compromise, signed malicious releases, staged payload delivery, victim selection, detection engineering, trust-boundary analysis, and defensive lessons.
+keywords:
+  - cybersecurity
+  - supply-chain
+  - 3CX
+  - incident-response
+  - threat-intelligence
+  - malware-analysis
+  - detection-engineering
+  - red-team
+license: CC-BY-NC-ND-4.0
